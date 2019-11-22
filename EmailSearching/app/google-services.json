@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "908078442598-1ura8kkp3h1q6j3vuoc9083dajfblqa9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uet.se.emailsearching",
+            "certificate_hash": "d880f3cefc05b42c77a7a91248335340b71513d9"
+          }
+        },
+        {
           "client_id": "908078442598-47g4bg8vp79m2qjf50vvt0uktr1bi3j0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
