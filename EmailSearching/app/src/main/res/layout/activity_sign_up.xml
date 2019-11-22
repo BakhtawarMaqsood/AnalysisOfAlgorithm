@@ -17,7 +17,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_id"
+        android:id="@+id/btnid"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="150dp"
         android:text="Sign Up"/>
