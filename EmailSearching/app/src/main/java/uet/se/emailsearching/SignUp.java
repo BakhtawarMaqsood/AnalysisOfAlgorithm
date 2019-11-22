@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class SignUp extends AppCompatActivity {
-    Button btn;
+    Button bt;
     EditText email;
     EditText password;
     @Override
@@ -18,7 +18,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         email=findViewById(R.id.email_id);
         password=findViewById(R.id.password_id);
-        btn.setOnClickListener(new View.OnClickListener() {
+        bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(SignUp.this,MainActivity.class);
