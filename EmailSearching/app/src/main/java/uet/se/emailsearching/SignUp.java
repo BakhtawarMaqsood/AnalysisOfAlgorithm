@@ -8,10 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class SignUp extends AppCompatActivity {
     Button signup;
     EditText email;
     EditText password;
+    FirebaseFirestore db= FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +28,10 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
 
                 String currentEmail = email.getText().toString().trim();
+                String currentPassword= password.getText().toString().trim();
                 Character firstCh = currentEmail.charAt(0);
-                
+                SignUpData signUp=new SignUpData(currentEmail,currentPassword);
+                db.collection(firstCh.toString()).document(currentEmail).set(signUp);
                 Intent intent=new Intent(SignUp.this,MainActivity.class);
                 startActivity(intent);
             }
