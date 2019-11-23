@@ -19,13 +19,15 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     Button login;
     EditText email;
     EditText pass;
     TextView tosignup;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    int i = 0;
+    ArrayList<String> currentCollectionData = new ArrayList<String>();
     private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
         db.setFirestoreSettings(settings);
-        final String[] currentCollection={""};
+
 
         login=findViewById(R.id.login);
         email=findViewById(R.id.email_login);
@@ -59,14 +61,18 @@ public class MainActivity extends AppCompatActivity {
                 db.collection(firstCh.toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        int i = 0;
                         for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
                         {
                             SignUpData data = documentSnapshot.toObject(SignUpData.class);
-                            String index = String.valueOf(i);
-                            Log.d(TAG,index);
-                            Log.d(TAG, data.getEmail());
+
+                            currentCollectionData.add(data.getEmail());
+                           // String index = String.valueOf(i);
+                           // Log.d(TAG,index);
+                            //Log.d(TAG, data.getEmail())
+                            Log.d(TAG, currentCollectionData.get(i));
                             i=i+1;
-                        }
+                    }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
