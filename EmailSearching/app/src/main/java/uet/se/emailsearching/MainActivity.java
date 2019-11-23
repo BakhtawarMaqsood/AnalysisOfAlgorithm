@@ -83,18 +83,17 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, String.valueOf(currentCollectionData.size()));
                 int start = 0;
                 int end = currentCollectionData.size();
-
             }
         });
     }
-    int BinarySearch(String arr[],int s,int e, String x){
+    int BinarySearch(ArrayList<String> arr,int s,int e, String x){
         s = 0;
-        e = arr.length-1;
+        e = arr.size();
         int m = (s + e)/2;
 
         if(s>e)
             return -1;
-        int result = x.compareTo(arr[m]);
+        int result = x.compareTo(arr.get(m));
         if(result == 0)
             return m;
         else if(result > 0)
