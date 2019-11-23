@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, String.valueOf(currentCollectionData.size()));
                 int start = 0;
                 int end = currentCollectionData.size();
+                BinarySearch(currentCollectionData,start,end,email.getText().toString());
             }
         });
     }
