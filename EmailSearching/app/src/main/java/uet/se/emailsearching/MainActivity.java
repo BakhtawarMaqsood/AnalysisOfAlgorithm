@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Button login;
     EditText email;
     EditText pass;
-    TextView tosignup;
+    TextView tosignup,error;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<String> currentCollectionData = new ArrayList<String>();
     private static final String TAG = "MainActivity";
@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         login=findViewById(R.id.login);
         email=findViewById(R.id.email_login);
         pass=findViewById(R.id.password_login);
-        tosignup = (TextView)findViewById(R.id.login_to_signup);
+        tosignup = (TextView)findViewById(R.id.error_login);
+        error = (TextView)findViewById(R.id.login_to_signup);
 
         tosignup.setOnClickListener(new View.OnClickListener()
         {
@@ -83,7 +84,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, String.valueOf(currentCollectionData.size()));
                 int start = 0;
                 int end = currentCollectionData.size();
-                BinarySearch(currentCollectionData,start,end,email.getText().toString());
+                int index = BinarySearch(currentCollectionData,start,end,email.getText().toString());
+                if(index == -1){
+                    error.setText("not a registered user");
+                }
+                else{
+                    Intent intent = new Intent(MainActivity.this, messageOfSuccess.class );
+                    startActivity(intent);
+                }
+
+
             }
         });
     }
