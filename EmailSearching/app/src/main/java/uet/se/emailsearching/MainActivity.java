@@ -80,7 +80,26 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "failed", Toast.LENGTH_SHORT).show();
                     }
                 });
+                Log.d(TAG, String.valueOf(currentCollectionData.size()));
+                int start = 0;
+                int end = currentCollectionData.size();
+
             }
         });
+    }
+    int BinarySearch(String arr[],int s,int e, String x){
+        s = 0;
+        e = arr.length-1;
+        int m = (s + e)/2;
+
+        if(s>e)
+            return -1;
+        int result = x.compareTo(arr[m]);
+        if(result == 0)
+            return m;
+        else if(result > 0)
+            return BinarySearch(arr,m+1, e, x);
+        else
+            return BinarySearch(arr, s, m-1, x);
     }
 }
