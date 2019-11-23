@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,6 +20,7 @@ public class SignUp<settings> extends AppCompatActivity {
     Button signup;
     EditText email;
     EditText password;
+    TextView tologin;
     FirebaseFirestore db= FirebaseFirestore.getInstance();
 
     @Override
@@ -28,6 +30,7 @@ public class SignUp<settings> extends AppCompatActivity {
         email=findViewById(R.id.email_signup);
         password=findViewById(R.id.password_signup);
         signup = (Button) findViewById(R.id.signup);
+        tologin = (TextView) findViewById(R.id.signup_to_login);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
@@ -52,6 +55,13 @@ public class SignUp<settings> extends AppCompatActivity {
                 });
                 //Intent intent=new Intent(SignUp.this,MainActivity.class);
                 //startActivity(intent);
+            }
+        });
+        tologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(SignUp.this,MainActivity.class);
+                startActivity(intent);
             }
         });
     }
