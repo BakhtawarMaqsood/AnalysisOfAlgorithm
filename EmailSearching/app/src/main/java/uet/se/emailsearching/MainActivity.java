@@ -1,8 +1,5 @@
 package uet.se.emailsearching;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,10 +25,11 @@ public class MainActivity extends AppCompatActivity {
     Button login;
     EditText email;
     EditText pass;
-    TextView tosignup,error;
+    TextView tosignup, error;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<String> currentCollectionData = new ArrayList<String>();
+    public ArrayList<String> currentCollectionData = new ArrayList<String>();
     private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +40,13 @@ public class MainActivity extends AppCompatActivity {
         db.setFirestoreSettings(settings);
 
 
-        login=findViewById(R.id.login);
-        email=findViewById(R.id.email_login);
-        pass=findViewById(R.id.password_login);
-        tosignup = (TextView)findViewById(R.id.error_login);
-        error = (TextView)findViewById(R.id.login_to_signup);
+        login = findViewById(R.id.login);
+        email = findViewById(R.id.email_login);
+        pass = findViewById(R.id.password_login);
+        tosignup = (TextView) findViewById(R.id.error_login);
+        error = (TextView) findViewById(R.id.login_to_signup);
 
-        tosignup.setOnClickListener(new View.OnClickListener()
-        {
+        tosignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, SignUp.class));
@@ -56,24 +56,37 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String currentEmail = email.getText().toString().trim();
+                final String currentEmail = email.getText().toString().trim();
                 String currentPassword = pass.getText().toString().trim();
                 Character firstCh = currentEmail.charAt(0);
                 db.collection(firstCh.toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         int i = 0;
-                        for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
-                        {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             SignUpData data = documentSnapshot.toObject(SignUpData.class);
 
                             currentCollectionData.add(data.getEmail());
-                           // String index = String.valueOf(i);
-                           // Log.d(TAG,index);
+                            // String index = String.valueOf(i);
+                            // Log.d(TAG,index);
                             //Log.d(TAG, data.getEmail())
                             Log.d(TAG, currentCollectionData.get(i));
-                            i=i+1;
-                    }
+                            i = i + 1;
+                        }
+                        Log.d(TAG, "sizee is");
+                        Log.d(TAG, String.valueOf(currentCollectionData.size()));
+
+                        Log.d(TAG, "sizee is");
+                        int start = 0;
+                        int end = currentCollectionData.size();
+                        int index = BinarySearch(currentCollectionData, start, end, currentEmail);
+                        if (index!=-1) {
+                            Intent intent = new Intent(MainActivity.this, messageOfSuccess.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            error.setText("not a registered user");
+                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -81,35 +94,23 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-                Log.d(TAG, String.valueOf(currentCollectionData.size()));
-                int start = 0;
-                int end = currentCollectionData.size();
-                int index = BinarySearch(currentCollectionData,start,end,email.getText().toString());
-                if(index == -1){
-                    error.setText("not a registered user");
-                }
-                else{
-                    Intent intent = new Intent(MainActivity.this, messageOfSuccess.class );
-                    startActivity(intent);
-                }
-
-
             }
         });
     }
-    int BinarySearch(ArrayList<String> arr,int s,int e, String x){
-        s = 0;
-        e = arr.size();
-        int m = (s + e)/2;
 
-        if(s>e)
+    public int BinarySearch(ArrayList<String> arr, int s, int e, String x) {
+        int low = s;
+        int high = e - 1;
+        int m = (low + high) / 2;
+
+        if (low > high)
             return -1;
         int result = x.compareTo(arr.get(m));
-        if(result == 0)
+        if (result == 0)
             return m;
-        else if(result > 0)
-            return BinarySearch(arr,m+1, e, x);
+        else if (result > 0)
+            return BinarySearch(arr, m + 1, high, x);
         else
-            return BinarySearch(arr, s, m-1, x);
+            return BinarySearch(arr, low, m - 1, x);
     }
 }
