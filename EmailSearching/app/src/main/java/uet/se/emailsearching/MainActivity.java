@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.login);
         email = findViewById(R.id.email_login);
         pass = findViewById(R.id.password_login);
-        tosignup = (TextView) findViewById(R.id.error_login);
-        error = (TextView) findViewById(R.id.login_to_signup);
+        tosignup = (TextView) findViewById(R.id.login_to_signup);
+        error = (TextView) findViewById(R.id.error_login);
 
         tosignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentCollectionData.clear();
+                error.setText("");
                 final String currentEmail = email.getText().toString().trim();
                 String currentPassword = pass.getText().toString().trim();
                 Character firstCh = currentEmail.charAt(0);
