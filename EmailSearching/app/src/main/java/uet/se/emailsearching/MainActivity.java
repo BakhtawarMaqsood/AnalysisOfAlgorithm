@@ -2,10 +2,8 @@ package uet.se.emailsearching;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextInputEditText email;
     TextInputEditText pass;
     TextView tosignup, error;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ArrayList<String> currentCollectionData = new ArrayList<String>();
     private static final String TAG = "MainActivity";
