@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, String.valueOf(currentCollectionData.size()));
 
                         Log.d(TAG, "sizee is");
-                        int start = 0;
-                        int end = currentCollectionData.size();
+                        //int start = 0;
+                        //int end = currentCollectionData.size();
                         //int index = BinarySearch(currentCollectionData, start, end, currentEmail);
                         int index = LinearSearch(currentCollectionData,currentEmail);
                         if (index!=-1) {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public int BinarySearch(ArrayList<String> arr, int s, int e, String x) {
+   /* public int BinarySearch(ArrayList<String> arr, int s, int e, String x) {
         int low = s;
         int high = e - 1;
         int m = (low + high) / 2;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             return BinarySearch(arr, m + 1, high, x);
         else
             return BinarySearch(arr, low, m - 1, x);
-    }
+    }*/
     public int LinearSearch(ArrayList<String> arr, String x)
     {
         int n = arr.size();
