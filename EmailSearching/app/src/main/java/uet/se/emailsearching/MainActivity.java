@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,8 +24,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Button login;
-    EditText email;
-    EditText pass;
+    TextInputEditText email;
+    TextInputEditText pass;
     TextView tosignup, error;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ArrayList<String> currentCollectionData = new ArrayList<String>();
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         login = findViewById(R.id.login);
-        email = findViewById(R.id.email_login);
-        pass = findViewById(R.id.password_login);
+        email = (TextInputEditText) findViewById(R.id.email_login);
+        pass = (TextInputEditText) findViewById(R.id.password_login);
         tosignup = (TextView) findViewById(R.id.login_to_signup);
         error = (TextView) findViewById(R.id.error_login);
 

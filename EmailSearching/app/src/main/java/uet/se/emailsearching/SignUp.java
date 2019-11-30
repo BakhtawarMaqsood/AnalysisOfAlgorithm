@@ -13,13 +13,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class SignUp<settings> extends AppCompatActivity {
     Button signup;
-    EditText email;
-    EditText password;
+    TextInputEditText email;
+    TextInputEditText password;
     TextView tologin;
     FirebaseFirestore db= FirebaseFirestore.getInstance();
 
@@ -27,8 +28,8 @@ public class SignUp<settings> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        email=findViewById(R.id.email_signup);
-        password=findViewById(R.id.password_signup);
+        email=(TextInputEditText) findViewById(R.id.email_signup);
+        password=(TextInputEditText) findViewById(R.id.password_signup);
         signup = (Button) findViewById(R.id.signup);
         tologin = (TextView) findViewById(R.id.signup_to_login);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()

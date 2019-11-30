@@ -17,37 +17,38 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REGISTER"
-        android:layout_marginTop="50dp"
+        android:text="SIGN UP"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="150dp"
-        android:textSize="25dp"
-        android:textColor="#000000"
-        android:textStyle="bold"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textSize="20dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:layout_marginTop="100dp"
-        />
-    <EditText
+        android:textSize="30dp"
+        android:textColor="#000000"/>
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/email_signup"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:text="Password"
-        />
-    <EditText
+        android:layout_marginTop="150dp"
+
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:id="@+id/email_signup"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/password_signup"/>
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:id="@+id/password_signup"/>
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,7 +63,8 @@
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textSize="15dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="Click to Login"
         android:textStyle="bold"/>
+
 </LinearLayout>
