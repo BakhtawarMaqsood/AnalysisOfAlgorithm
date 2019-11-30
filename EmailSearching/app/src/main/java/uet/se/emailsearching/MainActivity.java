@@ -67,28 +67,24 @@ public class MainActivity extends AppCompatActivity {
                         int i = 0;
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             SignUpData data = documentSnapshot.toObject(SignUpData.class);
-
                             currentCollectionData.add(data.getEmail());
-                            // String index = String.valueOf(i);
-                            // Log.d(TAG,index);
-                            //Log.d(TAG, data.getEmail())
-                            Log.d(TAG, currentCollectionData.get(i));
-                            i = i + 1;
-                        }
-                        Log.d(TAG, "sizee is");
-                        Log.d(TAG, String.valueOf(currentCollectionData.size()));
 
-                        Log.d(TAG, "sizee is");
-                        //int start = 0;
-                        //int end = currentCollectionData.size();
-                        //int index = BinarySearch(currentCollectionData, start, end, currentEmail);
-                        int index = LinearSearch(currentCollectionData,currentEmail);
-                        if (index!=-1) {
-                            Intent intent = new Intent(MainActivity.this, messageOfSuccess.class);
-                            startActivity(intent);
+                            /* //for debugging
+                            Log.d(TAG, currentCollectionData.get(i));
+                            i = i + 1;*/
+                        }
+
+                        int start = 0;
+                        int end = currentCollectionData.size();
+
+                        int index = BinarySearch(currentCollectionData, start, end, currentEmail);
+                        //int index = LinearSearch(currentCollectionData,currentEmail);
+                        if (index == -1) {
+                            error.setText("not a registered user");
                         }
                         else {
-                            error.setText("not a registered user");
+                            Intent intent = new Intent(MainActivity.this, messageOfSuccess.class);
+                            startActivity(intent);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -101,21 +97,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-   /* public int BinarySearch(ArrayList<String> arr, int s, int e, String x) {
+   public int BinarySearch(ArrayList<String> arr, int s, int e, String x) {
         int low = s;
         int high = e - 1;
         int m = (low + high) / 2;
 
-        if (low > high)
+        /*
+        //for debugging
+       Log.d(TAG, String.valueOf(low));
+       Log.d(TAG, String.valueOf(m));
+       Log.d(TAG, arr.get(m));
+       Log.d(TAG, String.valueOf(high));*/
+
+       if (low > high)
             return -1;
         int result = x.compareTo(arr.get(m));
         if (result == 0)
             return m;
         else if (result > 0)
-            return BinarySearch(arr, m + 1, high, x);
+            return BinarySearch(arr, m+1, high + 1, x);
         else
-            return BinarySearch(arr, low, m - 1, x);
-    }*/
+            return BinarySearch(arr, low, m, x);
+    }
     public int LinearSearch(ArrayList<String> arr, String x)
     {
         int n = arr.size();
