@@ -9,9 +9,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="you are registered"
+        android:text="Registered User"
+        android:textAppearance="Bold"
+        android:textColor="#013220 "
         android:layout_centerInParent="true"
-        android:textSize="28sp"
+        android:textSize="28dp"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/returnTo"
+        android:layout_marginTop="500dp"
+        android:layout_marginLeft="150dp"
+        android:text="OK"/>
 
 </RelativeLayout>
