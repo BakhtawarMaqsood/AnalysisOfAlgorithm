@@ -1,27 +1,28 @@
 package uet.se.emailsearching;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class SignUp<settings> extends AppCompatActivity {
     Button signup;
     TextInputEditText email;
     TextInputEditText password;
-    TextView tologin;
+    TextView tologin,error;
     FirebaseFirestore db= FirebaseFirestore.getInstance();
 
     @Override
@@ -32,6 +33,7 @@ public class SignUp<settings> extends AppCompatActivity {
         password=(TextInputEditText) findViewById(R.id.password_signup);
         signup = (Button) findViewById(R.id.signup);
         tologin = (TextView) findViewById(R.id.signup_to_login);
+        error = (TextView) findViewById(R.id.email_signup);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
@@ -40,9 +42,26 @@ public class SignUp<settings> extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String currentEmail = email.getText().toString().trim();
-                String currentPassword= password.getText().toString().trim();
+                final String currentPassword= password.getText().toString().trim();
                 Character firstCh = currentEmail.charAt(0);
                 SignUpData signUp=new SignUpData(currentEmail,currentPassword);
+                db.collection((firstCh.toString())).get().addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SignUp.this, "failed", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots){
+                            SignUpData signUpData = documentSnapshot.toObject(SignUpData.class);
+                            if(currentPassword.equals(signUpData.getPassword())){
+                                error.setText("you already have an Account");
+                                return;
+                            }
+                        }
+                    }
+                });
                 db.collection(firstCh.toString()).document(currentEmail).set(signUp).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
