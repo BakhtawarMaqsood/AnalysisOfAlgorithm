@@ -24,7 +24,7 @@ public class SignUp<settings> extends AppCompatActivity {
     TextInputEditText password;
     TextView tologin,error;
     FirebaseFirestore db= FirebaseFirestore.getInstance();
-
+    int signupcheck = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class SignUp<settings> extends AppCompatActivity {
         password=(TextInputEditText) findViewById(R.id.password_signup);
         signup = (Button) findViewById(R.id.signup);
         tologin = (TextView) findViewById(R.id.signup_to_login);
-        error = (TextView) findViewById(R.id.email_signup);
+        error = (TextView) findViewById(R.id.error_signup);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
@@ -41,7 +41,7 @@ public class SignUp<settings> extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentEmail = email.getText().toString().trim();
+                final String currentEmail = email.getText().toString().trim();
                 final String currentPassword= password.getText().toString().trim();
                 Character firstCh = currentEmail.charAt(0);
                 SignUpData signUp=new SignUpData(currentEmail,currentPassword);
@@ -55,26 +55,31 @@ public class SignUp<settings> extends AppCompatActivity {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots){
                             SignUpData signUpData = documentSnapshot.toObject(SignUpData.class);
-                            if(currentPassword.equals(signUpData.getPassword())){
+                            if(currentEmail.equals(signUpData.getEmail())){
                                 error.setText("you already have an Account");
-                                return;
+                                signupcheck = 1;
                             }
                         }
                     }
                 });
-                db.collection(firstCh.toString()).document(currentEmail).set(signUp).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(SignUp.this, "added", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SignUp.this, "failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                //Intent intent=new Intent(SignUp.this,MainActivity.class);
-                //startActivity(intent);
+                if(signupcheck == 0)
+                {
+                    db.collection(firstCh.toString()).document(currentEmail).set(signUp).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            error.setText("");
+                            Toast.makeText(SignUp.this, "added", Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(SignUp.this, "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    //Intent intent=new Intent(SignUp.this,MainActivity.class);
+                    //startActivity(intent);
+                }
+
             }
         });
         tologin.setOnClickListener(new View.OnClickListener() {
