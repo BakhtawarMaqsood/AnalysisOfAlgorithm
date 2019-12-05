@@ -82,14 +82,16 @@ public class MainActivity extends AppCompatActivity {
                         int index = BinarySearch(currentCollectionData, start, end, currentEmail);
                         //int index = LinearSearch(currentCollectionData,currentEmail);
                         if (index == -1) {
-                            //error.setText("not a registered user");
-                            Toast.makeText(MainActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                            error.setText("not a registered user");
                         }
                         else {
                             if((currentCollectionData.get(index).equals(currentEmail) )&& (currentCollectionPasswords.get(index).equals(currentPassword)))
                             {
                                 Intent intent = new Intent(MainActivity.this, messageOfSuccess.class);
                                 startActivity(intent);
+                            }
+                            else{
+                                error.setText("email or password do not match");
                             }
                         }
                     }
