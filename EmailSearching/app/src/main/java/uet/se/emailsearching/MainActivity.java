@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ArrayList<String> currentCollectionData = new ArrayList<String>();
+    public ArrayList<String> currentCollectionPasswords=new ArrayList<>();
     private static final String TAG = "MainActivity";
 
     @Override
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 currentCollectionData.clear();
                 error.setText("");
                 final String currentEmail = email.getText().toString().trim();
-                String currentPassword = pass.getText().toString().trim();
+                final String currentPassword = pass.getText().toString().trim();
                 Character firstCh = currentEmail.charAt(0);
                 db.collection(firstCh.toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             SignUpData data = documentSnapshot.toObject(SignUpData.class);
                             currentCollectionData.add(data.getEmail());
+                            currentCollectionPasswords.add(data.getPassword());
 
                             /* //for debugging
                             Log.d(TAG, currentCollectionData.get(i));
@@ -83,8 +85,11 @@ public class MainActivity extends AppCompatActivity {
                             error.setText("not a registered user");
                         }
                         else {
-                            Intent intent = new Intent(MainActivity.this, messageOfSuccess.class);
-                            startActivity(intent);
+                            if((currentCollectionData.get(index).equals(currentEmail) )&& (currentCollectionPasswords.get(index).equals(currentPassword)))
+                            {
+                                Intent intent = new Intent(MainActivity.this, messageOfSuccess.class);
+                                startActivity(intent);
+                            }
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
