@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
                         int index = BinarySearch(currentCollectionData, start, end, currentEmail);
                         //int index = LinearSearch(currentCollectionData,currentEmail);
                         if (index == -1) {
-                            error.setText("not a registered user");
+                            //error.setText("not a registered user");
+                            Toast.makeText(MainActivity.this, "failed", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             if((currentCollectionData.get(index).equals(currentEmail) )&& (currentCollectionPasswords.get(index).equals(currentPassword)))
