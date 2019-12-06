@@ -54,12 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SignUp.class));
             }
         });
-        if(!ValidateEmail() | !ValidatePassword()){
-            return;
-        }
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!ValidateEmail() | !ValidatePassword()){
+                    return;
+                }
                 currentCollectionData.clear();
                 error.setText("");
                 final String currentEmail = email.getText().toString().trim();
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             else{
-                                error.setText("email or password do not match");
+                                error.setText("email or password does not match");
                             }
                         }
                     }

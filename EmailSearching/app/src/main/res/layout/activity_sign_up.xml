@@ -8,10 +8,8 @@
     tools:context=".SignUp">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="131dp"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:background="@drawable/abc">
+    android:layout_height="150dp"
+    android:background="@drawable/abcd">
 
 </RelativeLayout>
     <RelativeLayout
@@ -84,7 +82,7 @@
         android:id="@+id/signup_to_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="Click to Login"
         android:textStyle="bold"
         android:textSize="15dp"

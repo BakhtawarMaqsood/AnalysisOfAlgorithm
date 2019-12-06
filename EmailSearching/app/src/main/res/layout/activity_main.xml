@@ -7,10 +7,8 @@
     tools:context=".MainActivity">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="131dp"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:background="@drawable/abc"
+    android:layout_height="150dp"
+    android:background="@drawable/abcd"
     >
 
 </RelativeLayout>
@@ -63,7 +61,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
+           android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:text="Log In"
             android:id="@+id/login"/>
@@ -83,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="Click to Sign Up"
         android:textSize="15dp"
         android:paddingHorizontal="20dp"
