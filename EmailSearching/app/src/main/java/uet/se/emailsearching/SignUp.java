@@ -3,6 +3,7 @@ package uet.se.emailsearching;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,11 +50,15 @@ public class SignUp<settings> extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!ValidateEmail() | !ValidatePassword()){
+                    return;
+                }
                 currentCollectionData.clear();
                 final String CEmail = email.getText().toString().trim();
                 final String currentPassword = password.getText().toString().trim();
                 final Character firstCh = CEmail.charAt(0);
                 final SignUpData signUp = new SignUpData(CEmail, currentPassword);
+
 
                 Log.d(TAG,"mail is "+ CEmail);
 
@@ -124,5 +129,29 @@ public class SignUp<settings> extends AppCompatActivity {
             return BinarySearchh(arr, m + 1, high + 1, x);
         else
             return BinarySearchh(arr, low, m, x);
+    }
+    private boolean ValidateEmail() {
+        String inputEmail = email.getText().toString().trim();
+        if (inputEmail.isEmpty()) {
+            email.setError("email fields can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail).matches()) {
+            email.setError("INVALID EMAIL");
+            return false;
+        } else {
+            email.setError(null);
+            return true;
+        }
+    }
+    private boolean ValidatePassword(){
+        String inputPassword=password.getText().toString().trim();
+        if(inputPassword.isEmpty()){
+            password.setError("password fields can't be empty");
+            return false;
+        }
+        else{
+            password.setError(null);
+            return true;
+        }
     }
 }

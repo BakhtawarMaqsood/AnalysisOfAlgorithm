@@ -2,6 +2,7 @@ package uet.se.emailsearching;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SignUp.class));
             }
         });
-
+        if(!ValidateEmail() | !ValidatePassword()){
+            return;
+        }
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,5 +140,29 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return -1;
+    }
+    private boolean ValidateEmail() {
+        String inputEmail = email.getText().toString().trim();
+        if (inputEmail.isEmpty()) {
+            email.setError("email fields can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail).matches()) {
+            email.setError("INVALID EMAIL");
+            return false;
+        } else {
+            email.setError(null);
+            return true;
+        }
+    }
+    private boolean ValidatePassword(){
+        String inputPassword=pass.getText().toString().trim();
+        if(inputPassword.isEmpty()){
+            pass.setError("password fields can't be empty");
+            return false;
+        }
+        else{
+            pass.setError(null);
+            return true;
+        }
     }
 }
